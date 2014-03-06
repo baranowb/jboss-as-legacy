@@ -64,9 +64,9 @@ public class EJB3RegistrarService implements Service<EJB3RegistrarProxy> {
         try {
             final ClassLoader currentClassLoader = Thread.currentThread().getContextClassLoader();
             // this has no effect if there is no dep on loader which already has this class
-//            final ClassLoader cl = moduleClassLoader("org.jboss.legacy.ejb3.spi");
-//            Thread.currentThread().setContextClassLoader(cl);
-//            System.err.println(Class.forName("org.jboss.logging.Logger", false, cl).getClassLoader());
+            final ClassLoader cl = moduleClassLoader("org.jboss.legacy.ejb3.spi");
+            Thread.currentThread().setContextClassLoader(cl);
+            System.err.println(Class.forName("org.jboss.logging.Logger", false, cl).getClassLoader());
             try {
                 this.value.setConnector(this.connector.getValue());
                 this.value.setEjb3AOPInterceptorsURL(currentClassLoader.getResource(AOP_FILE));
