@@ -51,7 +51,13 @@
         <module name="org.javassist"/>
         <module name="javax.api" export="true"/>
         <!-- would be nice, but no no... -->
-        <module name="org.jboss.legacy.naming.eap5" export="true"/>
+        <module name="org.jboss.legacy.naming.eap5" export="true">
+            <imports>
+            <exclude-set>
+                <path name="org.jboss.logging"/>
+            </exclude-set>
+        </imports>
+        </module>
         
     </dependencies>
 </module>
