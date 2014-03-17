@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.legacy.spi.tx.session;
 
 import java.util.ArrayList;
@@ -36,12 +35,14 @@ import org.jboss.legacy.spi.connector.ConnectorProxy;
 import org.jboss.tm.usertx.interfaces.UserTransactionSession;
 
 import com.arjuna.ats.internal.jbossatx.jta.PropagationContextManager;
+import javax.naming.NamingException;
 
 /**
  * @author baranowb
- * 
+ *
  */
 public class UserSessionTransactionProxy extends LegacyBean {
+
     private static final String JNDI_IMPORTER = "java:/TransactionPropagationContextImporter";
     private static final String JNDI_EXPORTER = "java:/TransactionPropagationContextExporter";
 
@@ -81,7 +82,7 @@ public class UserSessionTransactionProxy extends LegacyBean {
         proxyInterceptors.add(InvokeRemoteInterceptor.singleton);
         this.remotingProxyFactory.setInterceptors(proxyInterceptors);
         this.remotingProxyFactory.setTarget(new LegacyUserSessionTransaction());
-        this.remotingProxyFactory.setInterfaces(new Class<?>[] { UserTransactionSession.class });
+        this.remotingProxyFactory.setInterfaces(new Class<?>[]{UserTransactionSession.class});
         this.remotingProxyFactory.setDispatchName("UserTransactionSession");
         this.remotingProxyFactory.start();
     }
@@ -89,7 +90,13 @@ public class UserSessionTransactionProxy extends LegacyBean {
     @Override
     protected void internalStop() throws Exception {
         this.remotingProxyFactory.stop();
-        final InitialContext ctx = createJNPLocalContext();
+        InitialContext ctx = null;
+        try {
+            ctx = createJNPLocalContext();
+        } catch (NamingException ex) {
+            //jnp service is already down.
+            return;
+        }
         try {
             unbindRef(ctx, JNDI_IMPORTER);
             unbindRef(ctx, JNDI_EXPORTER);
