@@ -58,14 +58,17 @@
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-common</artifactId>
+            <classifier>client</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-proxy-impl</artifactId>
+            <classifier>client</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-proxy-spi</artifactId>
+            <classifier>client</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.aspects</groupId>
@@ -76,8 +79,8 @@
             <artifactId>jboss-metadata</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-               <artifactId>jbosssx-client</artifactId>
+            <groupId>org.jboss.security</groupId>
+            <artifactId>jbosssx-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.security</groupId>
@@ -93,8 +96,8 @@
             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
         </dependency>
         <dependency>
-               <groupId>org.jboss.jbossts.jts</groupId>
-             <artifactId>jbossjts-integration</artifactId>
+            <groupId>org.jboss.jbossts.jts</groupId>
+            <artifactId>jbossjts-integration</artifactId>
         </dependency>
     </dependencies>
 

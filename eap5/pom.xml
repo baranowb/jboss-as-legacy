@@ -44,6 +44,28 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.jboss.jbossas</groupId>
+                <artifactId>jboss-as-parent</artifactId>
+                <version>${version.jboss.as.legacy}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+	            <groupId>org.jboss.ejb3</groupId>
+	            <artifactId>jboss-ejb3-ext-api</artifactId>
+	            <version>${version.jboss.ejb3.ext.api}</version>
+	        </dependency>
+            <!--
+            <dependency>
+                <groupId>org.jboss.jbossas</groupId>
+                <artifactId>jboss-as-component-matrix</artifactId>
+                <version>${version.jboss.as.legacy}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            -->
+            <!--
+            <dependency>
                 <groupId>org.jboss.aop</groupId>
                 <artifactId>jboss-aop</artifactId>
                 <version>${version.jboss.as.legacy}</version>
@@ -61,6 +83,7 @@
                 <groupId>org.jboss.ejb3</groupId>
                 <artifactId>jboss-ejb3-proxy-impl</artifactId>
                 <version>${version.jboss.as.legacy}</version>
+                <classifier>client</classifier>
                 <scope>system</scope>
                 <systemPath>${eap5.home}/common/lib/jboss-ejb3-proxy-impl.jar</systemPath>
             </dependency>
@@ -68,6 +91,7 @@
                 <groupId>org.jboss.ejb3</groupId>
                 <artifactId>jboss-ejb3-proxy-spi</artifactId>
                 <version>${version.jboss.as.legacy}</version>
+                <classifier>client</classifier>
                 <scope>system</scope>
                 <systemPath>${eap5.home}/common/lib/jboss-ejb3-proxy-spi.jar</systemPath>
             </dependency>
@@ -86,7 +110,6 @@
                 <systemPath>${eap5.home}/common/lib/jboss-metadata.jar</systemPath>
             </dependency>
 
-            <!-- only for compile time, this is provided by jnp -->
             <dependency>
                 <groupId>org.jboss.remoting</groupId>
                 <artifactId>jboss-remoting</artifactId>
@@ -100,13 +123,6 @@
                 <version>${version.jboss.as.legacy}</version>
                 <scope>system</scope>
                 <systemPath>${eap5.home}/common/lib/jboss-remoting-aspects.jar</systemPath>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.ejb3</groupId>
-                <artifactId>jboss-ejb3-proxy-impl</artifactId>
-                <version>${version.jboss.as.legacy}</version>
-                <scope>system</scope>
-                <systemPath>${eap5.home}/common/lib/jboss-ejb3-proxy-impl.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>org.jboss.ejb3</groupId>
@@ -130,7 +146,7 @@
                 <systemPath>${eap5.home}/lib/trove.jar</systemPath>
             </dependency>
             <dependency>
-                <groupId>jboss</groupId>
+                <groupId>org.jboss.security</groupId>
                 <artifactId>jbosssx-client</artifactId>
                 <version>${version.jboss.as.legacy}</version>
                 <scope>system</scope>
@@ -165,11 +181,11 @@
                 <systemPath>${eap5.home}/common/lib/jboss-ejb3-security.jar</systemPath>
             </dependency>
             <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-iiop-client</artifactId>
+                <groupId>org.jboss.jbossas</groupId>
+                <artifactId>jboss-as-iiop</artifactId>
                 <version>${version.jboss.as.legacy}</version>
                 <scope>system</scope>
-                <systemPath>${eap5.home}/client/jboss-iiop-client.jar</systemPath>
+                <systemPath>${eap5.home}/common/jboss-iiop.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>org.jboss.security</groupId>
@@ -192,7 +208,6 @@
                 <scope>system</scope>
                 <systemPath>${eap5.home}/lib/jboss-javaee.jar</systemPath>
             </dependency>
-            <!-- to be removed -->
             <dependency>
 	            <groupId>org.jboss.jbossas</groupId>
 	            <artifactId>jboss-as-server</artifactId>
@@ -200,6 +215,7 @@
                 <scope>system</scope>
                 <systemPath>${eap5.home}/common/lib/jboss.jar</systemPath>
 	        </dependency>
+	        -->
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -213,17 +229,28 @@
             <groupId>org.jboss.aop</groupId>
             <artifactId>jboss-aop</artifactId>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.ejb3</groupId>
-            <artifactId>jboss-ejb3-proxy-impl</artifactId>
-        </dependency>
+        -->
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-proxy-spi</artifactId>
+            <classifier>client</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.aspects</groupId>
@@ -232,18 +259,44 @@
         <dependency>
             <groupId>org.jboss.metadata</groupId>
             <artifactId>jboss-metadata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.aspects</groupId>
             <artifactId>jboss-remoting-aspects</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-proxy-impl</artifactId>
+            <classifier>client</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-common</artifactId>
+            <classifier>client</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss</groupId>
@@ -254,8 +307,8 @@
             <artifactId>trove</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-               <artifactId>jbosssx-client</artifactId>
+            <groupId>org.jboss.security</groupId>
+            <artifactId>jbosssx-client</artifactId>
         </dependency>  
         <dependency>
             <groupId>org.jboss.security</groupId>
@@ -264,18 +317,43 @@
         <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-security</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-ext-api</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-security</artifactId>
+            <classifier>client</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-iiop-client</artifactId>
+            <groupId>org.jboss.jbossas</groupId>
+            <artifactId>jboss-as-iiop</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.security</groupId>

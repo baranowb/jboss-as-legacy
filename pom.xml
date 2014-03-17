@@ -42,7 +42,10 @@
         <version.compiler.plugin>3.1</version.compiler.plugin>
 
         <version.jboss.as>7.3.1.Final-redhat-1</version.jboss.as>
-        <version.jboss.as.legacy>5.2.0</version.jboss.as.legacy>
+        <!-- update this once all artifacts are in -->
+        <version.jboss.as.legacy>5.3.0</version.jboss.as.legacy>
+        <!-- this is defined directly in jboss-as-adminclient ... -->
+        <version.jboss.ejb3.ext.api>1.0.0</version.jboss.ejb3.ext.api>
         <version.javax.transaction>1.0.1.Final-redhat-1</version.javax.transaction>
         <version.jboss.jts.itengration>4.17.15.Final-redhat-4</version.jboss.jts.itengration>
     </properties>
